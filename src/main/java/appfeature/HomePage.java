@@ -18,7 +18,7 @@ public class HomePage
 	@FindBy(xpath="//span[@id=\"nav-link-accountList-nav-line-1\"]")
 	private WebElement signInButton;
 	
-	@FindBy(xpath="//input[@id=\"ap_email_login\"]")
+	@FindBy(xpath="//input[@id="ap_email"]")
 	private WebElement userIdTextbox;
 	
 	@FindBy(xpath="//input[@type=\"submit\"]")
