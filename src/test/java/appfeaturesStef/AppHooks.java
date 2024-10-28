@@ -11,6 +11,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import driverfactoryClass.DriverFactory;
+import driverfactoryClass.RemoteDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -18,7 +19,8 @@ import io.cucumber.java.Scenario;
 public class AppHooks 
 {
 	WebDriver driver;
-	DriverFactory df;
+	RemoteDriverFactory rdf ;
+    
 	@Before
 	public void initiateBrowser() throws IOException
 	{
@@ -26,9 +28,18 @@ public class AppHooks
 		String path =System.getProperty("user.dir")+"//src//test//resources//config.properties";
 		FileInputStream fis=new FileInputStream(path);
 		prop.load(fis);
-		String browserName = prop.getProperty("browser");
-		df=new DriverFactory();
-		driver=df.initBrowser(browserName);
+		
+		String browserName = prop.getProperty("browserName");
+		
+		String maven_browsername=System.getProperty("clibrowser");
+		
+		if(maven_browsername!=null)
+		{
+			browserName=maven_browsername;
+		}
+		
+		rdf = new RemoteDriverFactory();
+		driver=rdf.initBrowser(browserName);
 		driver.manage().window().maximize();
 	}
 	

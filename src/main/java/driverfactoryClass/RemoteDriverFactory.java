@@ -15,23 +15,23 @@ public class RemoteDriverFactory
 {
 	static WebDriver driver;
 
-	public WebDriver initBrowser(String browserName) throws MalformedURLException
+	public WebDriver initBrowser(String browsername) throws MalformedURLException
 	{
-		Capabilities capabilities = null;
+		Capabilities capabilities=null;
 		
-		if(browserName.equals("Chrome"))
+		if(browsername.equals("Chrome"))
 		{
 			
 			capabilities=new ChromeOptions();
 			
 		}
-		else if(browserName.equals("Firefox"))
+		else if(browsername.equals("Firefox"))
 		{
 			capabilities=new FirefoxOptions();
 			
 		}
 		
-		 driver=new RemoteWebDriver(new URL("https://localhost:4444/wd/hub"),capabilities);
+		 driver=new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capabilities);
 	
 		
 		return driver;
