@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,10 +33,10 @@ public class HomePage
 	
 	// Constructor is used to initialize the webelements
 	
-	public HomePage(WebDriver driver)
+	public HomePage(WebDriver webDriver)
 	{
-		   this.driver=driver;
-		   PageFactory.initElements(driver, this);
+		   this.driver=webDriver;
+		   PageFactory.initElements(webDriver, this);
 		   
 	}
 	

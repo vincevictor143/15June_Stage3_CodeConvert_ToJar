@@ -11,24 +11,28 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-public class DriverFactory 
+public class RemoteDriverFactory 
 {
 	static WebDriver driver;
 
 	public WebDriver initBrowser(String browserName) throws MalformedURLException
 	{
+		Capabilities capabilities = null;
+		
 		if(browserName.equals("Chrome"))
 		{
-			 driver=new ChromeDriver();
 			
+			capabilities=new ChromeOptions();
 			
 		}
 		else if(browserName.equals("Firefox"))
 		{
-			driver=new FirefoxDriver();
+			capabilities=new FirefoxOptions();
 			
 		}
-
+		
+		 driver=new RemoteWebDriver(new URL("https://localhost:4444/wd/hub"),capabilities);
+	
 		
 		return driver;
 	}

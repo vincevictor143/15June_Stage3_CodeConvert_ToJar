@@ -1,10 +1,12 @@
 package appfeaturesStef;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
 import appfeature.HomePage;
 import driverfactoryClass.DriverFactory;
+import driverfactoryClass.RemoteDriverFactory;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,12 +14,12 @@ import io.cucumber.java.en.When;
 
 public class HomePage_StepDefClass
 {
-	HomePage homepage=new HomePage(DriverFactory.getDriver());
+	HomePage homepage=new HomePage(RemoteDriverFactory.getDriver());
 	
 	@Given("User is at amazon portal")
 	public void user_is_at_amazon_portal()
 	{
-		WebDriver driver = DriverFactory.getDriver();
+		WebDriver driver = RemoteDriverFactory.getDriver();
 		driver.get("https://amazon.in");
 	}
 
