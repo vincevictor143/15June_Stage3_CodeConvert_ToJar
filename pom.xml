@@ -4,6 +4,12 @@
   <artifactId>ATTBDDCucumberBasics</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  <properties>
+	  <package.directory>${project.build.directory}/docker-resources</package.directory>
+  </properties>
+  
+  <!-- ${project.build.directory} represents to the path of target folder -->
+  
   <dependencies>
 	  
 	  <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
@@ -58,6 +64,7 @@
   </dependencies>
   
   <build>
+	  <finalName>cucumbertest-docker</finalName>
       <plugins>
 		  
         <plugin>
@@ -78,11 +85,85 @@
           <configuration>
 			  <suiteXmlFiles>
 				  <suiteXmlFile>
-					  testng.xml
+					  testng1.xml
 				  </suiteXmlFile>
 			  </suiteXmlFiles>
 		  </configuration>
         </plugin>
+        
+        <!-- 1. Maven Dependency Plugin -->
+
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.6.1</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+             <outputDirectory>
+				  ${package.directory}/libs
+			 </outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+        
+                <!-- 2. Maven Jar Plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.3.0</version>
+          <configuration>
+			  <outputDirectory>
+				  ${package.directory}/libs
+			  </outputDirectory>
+		  </configuration>
+		  <executions>
+			<execution>
+				<goals>
+					<goal>test-jar</goal>
+				</goals>
+			</execution>  
+		  </executions>
+        </plugin>
+        
+        
+        <!-- 3. Maven Resource Plugin -->
+        
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version> 
+        <executions>
+			<execution>
+			<id>copy-resources</id>
+			<phase>prepare-package</phase>
+			<goals>
+				<goal>copy-resources</goal>
+			</goals>
+        <configuration>
+          <outputDirectory>${package.directory}</outputDirectory>
+          <resources>
+			  <resource>
+				  <directory>src/test/resources</directory>
+			  </resource>
+			  
+			  <resource>
+				  <directory>.</directory>
+				  <includes>
+					  <include>testng1.xml</include>
+				  </includes>
+			  </resource>
+		  </resources>
+        </configuration>
+        </execution>
+		</executions> 
+      </plugin>
         
       </plugins>
   </build>
